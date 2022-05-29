@@ -26,7 +26,7 @@
 
 <body>
     <div class="container-scroller">
-        
+
         <!-- partial:partials/_sidebar.php -->
 
         <?php
@@ -229,3 +229,6 @@
                     </button>
                 </div>
             </nav>
+            <!-- partial -->
+            <div class="main-panel">
+                <div class="content-wrapper">
