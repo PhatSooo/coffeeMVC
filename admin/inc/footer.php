@@ -1,3 +1,4 @@
+</div>
 <footer class="footer">
   <div class="d-sm-flex justify-content-center justify-content-sm-between">
     <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">Copyright © bootstrapdash.com 2021</span>
@@ -31,6 +32,11 @@
 <!-- endinject -->
 <!-- Custom js for this page -->
 <script src="assets/js/dashboard.js"></script>
+<!-- End custom js for this page -->
+<!-- Custom js for this page -->
+<script src="assets/js/file-upload.js"></script>
+<script src="assets/js/typeahead.js"></script>
+<script src="assets/js/select2.js"></script>
 <!-- End custom js for this page -->
 </body>
 

@@ -65,11 +65,19 @@
             </a>
         </li>
         <li class="nav-item menu-items">
-            <a class="nav-link" href="viewcate.php">
+            <a class="nav-link" href="categories.php">
                 <span class="menu-icon">
                     <i class="mdi mdi-laptop"></i>
                 </span>
-                <span class="menu-title">Category</span>
+                <span class="menu-title">Manage Categories</span>
+            </a>
+        </li>
+        <li class="nav-item menu-items">
+            <a class="nav-link" href="products.php">
+                <span class="menu-icon">
+                    <i class="mdi mdi-file-document-box"></i>
+                </span>
+                <span class="menu-title">Manage Products</span>
             </a>
         </li>
         <li class="nav-item menu-items">
@@ -122,13 +130,6 @@
                 </ul>
             </div>
         </li>
-        <li class="nav-item menu-items">
-            <a class="nav-link" href="http://www.bootstrapdash.com/demo/corona-free/jquery/documentation/documentation.php">
-                <span class="menu-icon">
-                    <i class="mdi mdi-file-document-box"></i>
-                </span>
-                <span class="menu-title">Documentation</span>
-            </a>
-        </li>
+        
     </ul>
 </nav>
