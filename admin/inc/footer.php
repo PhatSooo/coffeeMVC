@@ -33,6 +33,11 @@
 <!-- Custom js for this page -->
 <script src="assets/js/dashboard.js"></script>
 <!-- End custom js for this page -->
+<!-- Custom js for this page -->
+<script src="assets/js/file-upload.js"></script>
+<script src="assets/js/typeahead.js"></script>
+<script src="assets/js/select2.js"></script>
+<!-- End custom js for this page -->
 </body>
 
 </html>

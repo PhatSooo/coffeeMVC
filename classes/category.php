@@ -1,6 +1,6 @@
 <?php
-include '../lib/database.php';
-include '../helper/format.php';
+include_once  '../lib/database.php';
+include_once  '../helper/format.php';
 ?>
 
 <?php
@@ -55,13 +55,15 @@ class Category
     {
         $cateName = $this->fm->validation($cateName);
         $cateName = mysqli_real_escape_string($this->db->link, $cateName);
+
         $id = mysqli_real_escape_string($this->db->link, $id);
 
         if (empty($cateName)) {
             $alert = "<span class='link-warning'>Category Name must be not empty</span>";
             return $alert;
         } else {
-            $query = "UPDATE tbl_category SET cateName = '$cateName' WHERE cateId = '$id'";
+            $query = "UPDATE tbl_category SET cateName = '$cateName'WHERE cateId = $id";
+            
             $rs = $this->db->update($query);
 
             if ($rs) {
@@ -77,6 +79,6 @@ class Category
     public function delete_category($id)
     {
         $query = "DELETE FROM tbl_category WHERE cateId = '$id'";
-        $rs = $this->db->delete($query);
+        $this->db->delete($query);
     }
 }

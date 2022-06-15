@@ -17,6 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <div class="page-header">
     <h3 class="page-title"> Manage Categories Page </h3>
+    <a class="nav-link btn btn-success create-new-button" href="#add">+ Create New Category</a>
     </nav>
 </div>
 <!-- view cate -->
@@ -24,7 +25,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <div class="col-lg-12 grid-margin stretch-card">
         <div class="card">
             <div class="card-body">
-                <h4 class="card-title">Basic Table</h4>
+                <h4 class="card-title">Categories Table</h4>
                 <div class="table-responsive">
                     <table class="table">
                         <thead>
@@ -49,13 +50,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                         <td><?php
                                             switch ($rs['cateStatus']) {
                                                 case 0:
-                                                    echo ("<lable class='badge badge-success'>Active</lable>");
+                                                    echo ('<a href="../classes/status.php?id=' . $rs['cateId'] . '&status=0&page=category" class="btn btn-success">Active</a>');
                                                     break;
                                                 case 1;
-                                                    echo ("<lable class='badge badge-danger'>Inactive</lable>");
+                                                    echo ('<a href="../classes/status.php?id=' . $rs['cateId'] . '&status=1&page=category" class="btn btn-danger">Inactive</a>');
                                                     break;
                                                 case 2:
-                                                    echo ("<lable class='badge badge-warning'>Pending</lable>");
+                                                    echo ('<a href="../classes/status.php?id=' . $rs['cateId'] . '&status=2&page=category" class="btn btn-warning">Pending</a>');
                                                     break;
                                             }
                                             ?></td>
@@ -71,7 +72,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                             <div class="modal-dialog modal-dialog-centered">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
-                                                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                                                        <h5 class="modal-title" id="exampleModalLabel">Editting Category</h5>
                                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                     </div>
                                                     <div class="modal-body">
@@ -99,24 +100,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </div>
 
 <!-- add cate -->
-<div class="row">
-    <div class="col-12 grid-margin stretch-card">
-        <div class="card">
-            <div class="card-body">
-                <h4 class="card-title">Adding Category</h4>
-                <?php
-                if (isset($insert_cate)) {
-                    echo $insert_cate;
-                }
-                ?>
-                <form class="form-inline" method="POST" action="categories.php">
-                    <input name="cateName" type="text" class="form-control mb-2 mr-sm-2" id="inlineFormInputName2" placeholder="Input Category Name here....">
-                    <button type="submit" class="btn btn-primary mb-2">Submit</button>
-                </form>
+<a name="add">
+    <div class="row" id="add">
+        <div class="col-12 grid-margin stretch-card">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Adding Category</h4>
+                    <?php
+                    if (isset($insert_cate)) {
+                        echo $insert_cate;
+                    }
+                    ?>
+                    <form class="form-inline" method="POST" action="categories.php">
+                        <input name="cateName" type="text" class="form-control mb-2 mr-sm-2" id="inlineFormInputName2" placeholder="Input Category Name here....">
+                        <button type="submit" class="btn btn-primary mb-2">Submit</button>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
-</div>
+</a>
 
 
 <?php include 'inc/footer.php'; ?>
