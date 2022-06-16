@@ -32,7 +32,7 @@ class Product
         $uploaded_image = "uploads/" . $unique_image;
 
         $checkExist = $this->db->select("SELECT * FROM tbl_product WHERE productName = '$prodName'");
-        if ($prodName == "" || $prodPrice == "" || $prodCate == "" || $prodDesc == "" || $file_name == "") {
+        if ($prodName == "" || $prodPrice == "" || $prodCate == 0 || $prodDesc == "" || $file_name == "") {
             $alert = "<span class='link-danger'>Fields must be not empty</span>";
             return $alert;
         } else if ($checkExist !== false && $checkExist->num_rows > 0) {
@@ -41,11 +41,17 @@ class Product
         } else {
             move_uploaded_file($file_temp, $uploaded_image);
 
-            $getHigh = "SELECT * FROM tbl_product ORDER BY productOrder DESC LIMIT 1";
-            $getHigh = $this->db->select($getHigh)->fetch_array();
-            $result = $getHigh['productOrder'] + 1;
-
-            $query = "INSERT INTO tbl_product(productName,productPrice,cateId,productDesc,productImage,productStatus,productOrder) VALUE ('$prodName','$prodPrice','$prodCate','$prodDesc','$unique_image',2,$result)";
+            $getHigh = "SELECT * FROM tbl_product WHERE cateId = '$prodCate' ORDER BY productOrder DESC LIMIT 1";
+            $getHigh = $this->db->select($getHigh);
+            if (!empty($getHigh->num_rows) && $getHigh->num_rows > 0) {
+                $getHigh = $getHigh->fetch_array();
+                $result = $getHigh['productOrder'] + 1;
+                $query = "INSERT INTO tbl_product(productName,productPrice,cateId,productDesc,productImage,productStatus,productOrder) VALUE ('$prodName','$prodPrice','$prodCate','$prodDesc','$unique_image',2,$result)";
+            }
+            else {
+                $query = "INSERT INTO tbl_product(productName,productPrice,cateId,productDesc,productImage,productStatus,productOrder) VALUE ('$prodName','$prodPrice','$prodCate','$prodDesc','$unique_image',2,0)";
+            
+            }
             $rs = $this->db->insert($query);
 
             if ($rs) {
@@ -62,6 +68,16 @@ class Product
     {
         $query = "SELECT tbl_product.*, tbl_category.cateName FROM tbl_product INNER JOIN tbl_category 
         ON tbl_product.cateId = tbl_category.cateId
+        ORDER BY tbl_product.productOrder";
+        $rs = $this->db->select($query);
+        return $rs;
+    }
+
+    public function show_product_byCateId($cateId)
+    {
+        $query = "SELECT tbl_product.*, tbl_category.cateName FROM tbl_product INNER JOIN tbl_category 
+        ON tbl_product.cateId = tbl_category.cateId
+        WHERE tbl_product.cateId = $cateId
         ORDER BY tbl_product.productOrder";
         $rs = $this->db->select($query);
         return $rs;
@@ -110,7 +126,7 @@ class Product
                     return $alert;
                 }
                 move_uploaded_file($file_temp, $uploaded_image);
-                unlink('uploads/'.$oldImg);
+                unlink('uploads/' . $oldImg);
                 $query = "UPDATE tbl_product SET 
                     productName = '$prodName', 
                     cateId = $cateId, 

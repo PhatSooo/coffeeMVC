@@ -1,5 +1,5 @@
 <?php
-    include '../config/config.php';
+    include $_SERVER['DOCUMENT_ROOT'] . '/coffeeMVC/config/config.php';
 ?>
 
 <?php

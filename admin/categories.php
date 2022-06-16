@@ -45,7 +45,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                     $i++;
                             ?>
                                     <tr>
-                                        <td><?php echo $rs['cateId'] ?></td>
+                                        <td><?php echo $i ?></td>
                                         <td><?php echo $rs['cateName'] ?></td>
                                         <td><?php
                                             switch ($rs['cateStatus']) {

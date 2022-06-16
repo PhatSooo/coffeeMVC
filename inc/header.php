@@ -30,6 +30,7 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 
+<?php $page = substr($_SERVER['SCRIPT_NAME'], strrpos($_SERVER['SCRIPT_NAME'],"/")+1); ?>
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
         <div class="container">
@@ -39,13 +40,13 @@
             </button>
             <div class="collapse navbar-collapse" id="ftco-nav">
                 <ul class="navbar-nav ml-auto">
-                    <li class="nav-item active"><a href="index.php" class="nav-link">Home</a></li>
-                    <li class="nav-item"><a href="menu.php" class="nav-link">Menu</a></li>
-                    <li class="nav-item"><a href="services.php" class="nav-link">Services</a></li>
-                    <li class="nav-item"><a href="blog.php" class="nav-link">Blog</a></li>
-                    <li class="nav-item"><a href="about.php" class="nav-link">About</a></li>
+                    <li class="nav-item <?= $page == 'index.php' ? 'active' : '' ?>"><a href="index.php" class="nav-link">Home</a></li>
+                    <li class="nav-item <?= $page == 'menu.php' ? 'active' : '' ?>"><a href="menu.php" class="nav-link">Menu</a></li>
+                    <li class="nav-item <?= $page == 'services.php' ? 'active' : '' ?>"><a href="services.php" class="nav-link">Services</a></li>
+                    <li class="nav-item <?= $page == 'blog.php' ? 'active' : '' ?>"><a href="blog.php" class="nav-link">Blog</a></li>
+                    <li class="nav-item <?= $page == 'about.php' ? 'active' : '' ?>"><a href="about.php" class="nav-link">About</a></li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="room.php" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Shop</a>
+                        <a class="nav-link dropdown-toggle" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Shop</a>
                         <div class="dropdown-menu" aria-labelledby="dropdown04">
                             <a class="dropdown-item" href="shop.php">Shop</a>
                             <a class="dropdown-item" href="product-single.php">Single Product</a>
@@ -53,7 +54,7 @@
                             <a class="dropdown-item" href="checkout.php">Checkout</a>
                         </div>
                     </li>
-                    <li class="nav-item"><a href="contact.php" class="nav-link">Contact</a></li>
+                    <li class="nav-item <?= $page == 'contact.php' ? 'active' : '' ?>"><a href="contact.php" class="nav-link">Contact</a></li>
                     <li class="nav-item cart"><a href="cart.php" class="nav-link"><span class="icon icon-shopping_cart"></span><span class="bag d-flex justify-content-center align-items-center"><small>1</small></span></a></li>
                 </ul>
             </div>
