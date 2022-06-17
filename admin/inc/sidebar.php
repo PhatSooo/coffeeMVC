@@ -81,6 +81,14 @@
             </a>
         </li>
         <li class="nav-item menu-items">
+            <a class="nav-link" href="booktables.php">
+                <span class="menu-icon">
+                    <i class="mdi mdi-table-large"></i>
+                </span>
+                <span class="menu-title">Manage Tables</span>
+            </a>
+        </li>
+        <li class="nav-item menu-items">
             <a class="nav-link" href="pages/forms/basic_elements.php">
                 <span class="menu-icon">
                     <i class="mdi mdi-playlist-play"></i>

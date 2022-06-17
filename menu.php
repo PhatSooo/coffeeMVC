@@ -1,5 +1,6 @@
 <?php
 include 'inc/header.php';
+include $_SERVER['DOCUMENT_ROOT'] . '/CoffeeMVC/classes/product.php';
 ?>
 
 <section class="home-slider owl-carousel">
@@ -18,285 +19,115 @@ include 'inc/header.php';
 	</div>
 </section>
 
-<section class="ftco-intro">
-	<div class="container-wrap">
-		<div class="wrap d-md-flex align-items-xl-end">
-			<div class="info">
-				<div class="row no-gutters">
-					<div class="col-md-4 d-flex ftco-animate">
-						<div class="icon"><span class="icon-phone"></span></div>
-						<div class="text">
-							<h3>000 (123) 456 7890</h3>
-							<p>A small river named Duden flows by their place and supplies.</p>
-						</div>
-					</div>
-					<div class="col-md-4 d-flex ftco-animate">
-						<div class="icon"><span class="icon-my_location"></span></div>
-						<div class="text">
-							<h3>198 West 21th Street</h3>
-							<p> 203 Fake St. Mountain View, San Francisco, California, USA</p>
-						</div>
-					</div>
-					<div class="col-md-4 d-flex ftco-animate">
-						<div class="icon"><span class="icon-clock-o"></span></div>
-						<div class="text">
-							<h3>Open Monday-Friday</h3>
-							<p>8:00am - 9:00pm</p>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="book p-4">
-				<h3>Book a Table</h3>
-				<form action="#" class="appointment-form">
-					<div class="d-md-flex">
-						<div class="form-group">
-							<input type="text" class="form-control" placeholder="First Name">
-						</div>
-						<div class="form-group ml-md-4">
-							<input type="text" class="form-control" placeholder="Last Name">
-						</div>
-					</div>
-					<div class="d-md-flex">
-						<div class="form-group">
-							<div class="input-wrap">
-								<div class="icon"><span class="ion-md-calendar"></span></div>
-								<input type="text" class="form-control appointment_date" placeholder="Date">
-							</div>
-						</div>
-						<div class="form-group ml-md-4">
-							<div class="input-wrap">
-								<div class="icon"><span class="ion-ios-clock"></span></div>
-								<input type="text" class="form-control appointment_time" placeholder="Time">
-							</div>
-						</div>
-						<div class="form-group ml-md-4">
-							<input type="text" class="form-control" placeholder="Phone">
-						</div>
-					</div>
-					<div class="d-md-flex">
-						<div class="form-group">
-							<textarea name="" id="" cols="30" rows="2" class="form-control" placeholder="Message"></textarea>
-						</div>
-						<div class="form-group ml-md-4">
-							<input type="submit" value="Appointment" class="btn btn-white py-3 px-4">
-						</div>
-					</div>
-				</form>
-			</div>
-		</div>
-	</div>
-</section>
+<?php
+include 'booktables.php';
+?>
 
 <section class="ftco-section">
 	<div class="container">
 		<div class="row">
 			<div class="col-md-6 mb-5 pb-3">
 				<h3 class="mb-5 heading-pricing ftco-animate">Starter</h3>
-				<div class="pricing-entry d-flex ftco-animate">
-					<div class="img" style="background-image: url(images/dish-1.jpg);"></div>
-					<div class="desc pl-3">
-						<div class="d-flex text align-items-center">
-							<h3><span>Cornish - Mackerel</span></h3>
-							<span class="price">$20.00</span>
+				<?php
+				$prod = new Product();
+				$prod_list = $prod->show_product();
+				while ($rs = $prod_list->fetch_array()) {
+					if ($rs['cateId'] == 22) {
+				?>
+						<div class="pricing-entry d-flex ftco-animate">
+							<div class="img" style="background-image: url(admin/uploads/<?= $rs['productImage'] ?>);"></div>
+							<div class="desc pl-3">
+								<div class="d-flex text align-items-center">
+									<h3><span><?= $rs['productName'] ?></span></h3>
+									<span class="price">$<?= $rs['productPrice'] ?></span>
+								</div>
+								<div class="d-block">
+									<p><?= $rs['productDesc'] ?></p>
+								</div>
+							</div>
 						</div>
-						<div class="d-block">
-							<p>A small river named Duden flows by their place and supplies</p>
-						</div>
-					</div>
-				</div>
-				<div class="pricing-entry d-flex ftco-animate">
-					<div class="img" style="background-image: url(images/dish-2.jpg);"></div>
-					<div class="desc pl-3">
-						<div class="d-flex text align-items-center">
-							<h3><span>Roasted Steak</span></h3>
-							<span class="price">$29.00</span>
-						</div>
-						<div class="d-block">
-							<p>A small river named Duden flows by their place and supplies</p>
-						</div>
-					</div>
-				</div>
-				<div class="pricing-entry d-flex ftco-animate">
-					<div class="img" style="background-image: url(images/dish-3.jpg);"></div>
-					<div class="desc pl-3">
-						<div class="d-flex text align-items-center">
-							<h3><span>Seasonal Soup</span></h3>
-							<span class="price">$20.00</span>
-						</div>
-						<div class="d-block">
-							<p>A small river named Duden flows by their place and supplies</p>
-						</div>
-					</div>
-				</div>
-				<div class="pricing-entry d-flex ftco-animate">
-					<div class="img" style="background-image: url(images/dish-4.jpg);"></div>
-					<div class="desc pl-3">
-						<div class="d-flex text align-items-center">
-							<h3><span>Chicken Curry</span></h3>
-							<span class="price">$20.00</span>
-						</div>
-						<div class="d-block">
-							<p>A small river named Duden flows by their place and supplies</p>
-						</div>
-					</div>
-				</div>
+				<?php
+					}
+				}
+				?>
 			</div>
 
 			<div class="col-md-6 mb-5 pb-3">
 				<h3 class="mb-5 heading-pricing ftco-animate">Main Dish</h3>
-				<div class="pricing-entry d-flex ftco-animate">
-					<div class="img" style="background-image: url(images/dish-5.jpg);"></div>
-					<div class="desc pl-3">
-						<div class="d-flex text align-items-center">
-							<h3><span>Sea Trout</span></h3>
-							<span class="price">$49.91</span>
+				<?php
+				$prod = new Product();
+				$prod_list = $prod->show_product();
+				while ($rs = $prod_list->fetch_array()) {
+					if ($rs['cateId'] == 2) {
+				?>
+						<div class="pricing-entry d-flex ftco-animate">
+							<div class="img" style="background-image: url(admin/uploads/<?= $rs['productImage'] ?>);"></div>
+							<div class="desc pl-3">
+								<div class="d-flex text align-items-center">
+									<h3><span><?= $rs['productName'] ?></span></h3>
+									<span class="price">$<?= $rs['productPrice'] ?></span>
+								</div>
+								<div class="d-block">
+									<p><?= $rs['productDesc'] ?></p>
+								</div>
+							</div>
 						</div>
-						<div class="d-block">
-							<p>A small river named Duden flows by their place and supplies</p>
-						</div>
-					</div>
-				</div>
-				<div class="pricing-entry d-flex ftco-animate">
-					<div class="img" style="background-image: url(images/dish-6.jpg);"></div>
-					<div class="desc pl-3">
-						<div class="d-flex text align-items-center">
-							<h3><span>Roasted Beef</span></h3>
-							<span class="price">$20.00</span>
-						</div>
-						<div class="d-block">
-							<p>A small river named Duden flows by their place and supplies</p>
-						</div>
-					</div>
-				</div>
-				<div class="pricing-entry d-flex ftco-animate">
-					<div class="img" style="background-image: url(images/dish-7.jpg);"></div>
-					<div class="desc pl-3">
-						<div class="d-flex text align-items-center">
-							<h3><span>Butter Fried Chicken</span></h3>
-							<span class="price">$20.00</span>
-						</div>
-						<div class="d-block">
-							<p>A small river named Duden flows by their place and supplies</p>
-						</div>
-					</div>
-				</div>
-				<div class="pricing-entry d-flex ftco-animate">
-					<div class="img" style="background-image: url(images/dish-8.jpg);"></div>
-					<div class="desc pl-3">
-						<div class="d-flex text align-items-center">
-							<h3><span>Chiken Filet</span></h3>
-							<span class="price">$20.00</span>
-						</div>
-						<div class="d-block">
-							<p>A small river named Duden flows by their place and supplies</p>
-						</div>
-					</div>
-				</div>
+				<?php
+					}
+				}
+				?>
 			</div>
 
 			<div class="col-md-6">
 				<h3 class="mb-5 heading-pricing ftco-animate">Desserts</h3>
-				<div class="pricing-entry d-flex ftco-animate">
-					<div class="img" style="background-image: url(images/dessert-1.jpg);"></div>
-					<div class="desc pl-3">
-						<div class="d-flex text align-items-center">
-							<h3><span>Cornish - Mackerel</span></h3>
-							<span class="price">$20.00</span>
+				<?php
+				$prod = new Product();
+				$prod_list = $prod->show_product();
+				while ($rs = $prod_list->fetch_array()) {
+					if ($rs['cateId'] == 9) {
+				?>
+						<div class="pricing-entry d-flex ftco-animate">
+							<div class="img" style="background-image: url(admin/uploads/<?= $rs['productImage'] ?>);"></div>
+							<div class="desc pl-3">
+								<div class="d-flex text align-items-center">
+									<h3><span><?= $rs['productName'] ?></span></h3>
+									<span class="price">$<?= $rs['productPrice'] ?></span>
+								</div>
+								<div class="d-block">
+									<p><?= $rs['productDesc'] ?></p>
+								</div>
+							</div>
 						</div>
-						<div class="d-block">
-							<p>A small river named Duden flows by their place and supplies</p>
-						</div>
-					</div>
-				</div>
-				<div class="pricing-entry d-flex ftco-animate">
-					<div class="img" style="background-image: url(images/dessert-2.jpg);"></div>
-					<div class="desc pl-3">
-						<div class="d-flex text align-items-center">
-							<h3><span>Roasted Steak</span></h3>
-							<span class="price">$29.00</span>
-						</div>
-						<div class="d-block">
-							<p>A small river named Duden flows by their place and supplies</p>
-						</div>
-					</div>
-				</div>
-				<div class="pricing-entry d-flex ftco-animate">
-					<div class="img" style="background-image: url(images/dessert-3.jpg);"></div>
-					<div class="desc pl-3">
-						<div class="d-flex text align-items-center">
-							<h3><span>Seasonal Soup</span></h3>
-							<span class="price">$20.00</span>
-						</div>
-						<div class="d-block">
-							<p>A small river named Duden flows by their place and supplies</p>
-						</div>
-					</div>
-				</div>
-				<div class="pricing-entry d-flex ftco-animate">
-					<div class="img" style="background-image: url(images/dessert-4.jpg);"></div>
-					<div class="desc pl-3">
-						<div class="d-flex text align-items-center">
-							<h3><span>Chicken Curry</span></h3>
-							<span class="price">$20.00</span>
-						</div>
-						<div class="d-block">
-							<p>A small river named Duden flows by their place and supplies</p>
-						</div>
-					</div>
-				</div>
+				<?php
+					}
+				}
+				?>
 			</div>
 
 			<div class="col-md-6">
 				<h3 class="mb-5 heading-pricing ftco-animate">Drinks</h3>
-				<div class="pricing-entry d-flex ftco-animate">
-					<div class="img" style="background-image: url(images/drink-5.jpg);"></div>
-					<div class="desc pl-3">
-						<div class="d-flex text align-items-center">
-							<h3><span>Sea Trout</span></h3>
-							<span class="price">$49.91</span>
+				<?php
+				$prod = new Product();
+				$prod_list = $prod->show_product();
+				while ($rs = $prod_list->fetch_array()) {
+					if ($rs['cateId'] == 3) {
+				?>
+						<div class="pricing-entry d-flex ftco-animate">
+							<div class="img" style="background-image: url(admin/uploads/<?= $rs['productImage'] ?>);"></div>
+							<div class="desc pl-3">
+								<div class="d-flex text align-items-center">
+									<h3><span><?= $rs['productName'] ?></span></h3>
+									<span class="price">$<?= $rs['productPrice'] ?></span>
+								</div>
+								<div class="d-block">
+									<p><?= $rs['productDesc'] ?></p>
+								</div>
+							</div>
 						</div>
-						<div class="d-block">
-							<p>A small river named Duden flows by their place and supplies</p>
-						</div>
-					</div>
-				</div>
-				<div class="pricing-entry d-flex ftco-animate">
-					<div class="img" style="background-image: url(images/drink-6.jpg);"></div>
-					<div class="desc pl-3">
-						<div class="d-flex text align-items-center">
-							<h3><span>Roasted Beef</span></h3>
-							<span class="price">$20.00</span>
-						</div>
-						<div class="d-block">
-							<p>A small river named Duden flows by their place and supplies</p>
-						</div>
-					</div>
-				</div>
-				<div class="pricing-entry d-flex ftco-animate">
-					<div class="img" style="background-image: url(images/drink-7.jpg);"></div>
-					<div class="desc pl-3">
-						<div class="d-flex text align-items-center">
-							<h3><span>Butter Fried Chicken</span></h3>
-							<span class="price">$20.00</span>
-						</div>
-						<div class="d-block">
-							<p>A small river named Duden flows by their place and supplies</p>
-						</div>
-					</div>
-				</div>
-				<div class="pricing-entry d-flex ftco-animate">
-					<div class="img" style="background-image: url(images/drink-8.jpg);"></div>
-					<div class="desc pl-3">
-						<div class="d-flex text align-items-center">
-							<h3><span>Chiken Filet</span></h3>
-							<span class="price">$20.00</span>
-						</div>
-						<div class="d-block">
-							<p>A small river named Duden flows by their place and supplies</p>
-						</div>
-					</div>
-				</div>
+				<?php
+					}
+				}
+				?>
 			</div>
 		</div>
 	</div>
@@ -329,214 +160,88 @@ include 'inc/header.php';
 
 							<div class="tab-pane fade show active" id="v-pills-1" role="tabpanel" aria-labelledby="v-pills-1-tab">
 								<div class="row">
-									<div class="col-md-4 text-center">
-										<div class="menu-wrap">
-											<a href="#" class="menu-img img mb-4" style="background-image: url(images/dish-1.jpg);"></a>
-											<div class="text">
-												<h3><a href="#">Grilled Beef</a></h3>
-												<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia.</p>
-												<p class="price"><span>$2.90</span></p>
-												<p><a href="#" class="btn btn-primary btn-outline-primary">Add to cart</a></p>
+									<?php
+									$prod = new Product();
+									$prod_list = $prod->show_product();
+									$i = 0;
+									while ($rs = $prod_list->fetch_array()) {
+										if ($rs['cateId'] == 2) {
+									?>
+											<div class="col-md-4 text-center">
+												<div class="menu-wrap">
+													<a href="product-single.php?id=<?= $rs['productId'] ?>" class="menu-img img mb-4" style="background-image: url(admin/uploads/<?= $rs['productImage'] ?>);"></a>
+													<div class="text text-center pt-4">
+														<h3><a href="#"> <?= $rs['productName'] ?> </a></h3>
+														<p><?= $rs['productDesc'] ?></p>
+														<p class="price"><span>$<?= $rs['productPrice'] ?> </span></p>
+														<p><a href="product-single.php?id=<?= $rs['productId'] ?>" class="btn btn-primary btn-outline-primary">Add to Cart</a></p>
+													</div>
+												</div>
 											</div>
-										</div>
-									</div>
-									<div class="col-md-4 text-center">
-										<div class="menu-wrap">
-											<a href="#" class="menu-img img mb-4" style="background-image: url(images/dish-2.jpg);"></a>
-											<div class="text">
-												<h3><a href="#">Grilled Beef</a></h3>
-												<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia.</p>
-												<p class="price"><span>$2.90</span></p>
-												<p><a href="#" class="btn btn-primary btn-outline-primary">Add to cart</a></p>
-											</div>
-										</div>
-									</div>
-									<div class="col-md-4 text-center">
-										<div class="menu-wrap">
-											<a href="#" class="menu-img img mb-4" style="background-image: url(images/dish-3.jpg);"></a>
-											<div class="text">
-												<h3><a href="#">Grilled Beef</a></h3>
-												<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia.</p>
-												<p class="price"><span>$2.90</span></p>
-												<p><a href="#" class="btn btn-primary btn-outline-primary">Add to cart</a></p>
-											</div>
-										</div>
-									</div>
-									<div class="col-md-4 text-center">
-										<div class="menu-wrap">
-											<a href="#" class="menu-img img mb-4" style="background-image: url(images/dish-4.jpg);"></a>
-											<div class="text">
-												<h3><a href="#">Grilled Beef</a></h3>
-												<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia.</p>
-												<p class="price"><span>$2.90</span></p>
-												<p><a href="#" class="btn btn-primary btn-outline-primary">Add to cart</a></p>
-											</div>
-										</div>
-									</div>
-									<div class="col-md-4 text-center">
-										<div class="menu-wrap">
-											<a href="#" class="menu-img img mb-4" style="background-image: url(images/dish-5.jpg);"></a>
-											<div class="text">
-												<h3><a href="#">Grilled Beef</a></h3>
-												<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia.</p>
-												<p class="price"><span>$2.90</span></p>
-												<p><a href="#" class="btn btn-primary btn-outline-primary">Add to cart</a></p>
-											</div>
-										</div>
-									</div>
-									<div class="col-md-4 text-center">
-										<div class="menu-wrap">
-											<a href="#" class="menu-img img mb-4" style="background-image: url(images/dish-6.jpg);"></a>
-											<div class="text">
-												<h3><a href="#">Grilled Beef</a></h3>
-												<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia.</p>
-												<p class="price"><span>$2.90</span></p>
-												<p><a href="#" class="btn btn-primary btn-outline-primary">Add to cart</a></p>
-											</div>
-										</div>
-									</div>
+									<?php
+											$i++;
+										}
+										if ($i == 3) break;
+									}
+									?>
 								</div>
 							</div>
 
 							<div class="tab-pane fade" id="v-pills-2" role="tabpanel" aria-labelledby="v-pills-2-tab">
 								<div class="row">
-									<div class="col-md-4 text-center">
-										<div class="menu-wrap">
-											<a href="#" class="menu-img img mb-4" style="background-image: url(images/drink-1.jpg);"></a>
-											<div class="text">
-												<h3><a href="#">Lemonade Juice</a></h3>
-												<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia.</p>
-												<p class="price"><span>$2.90</span></p>
-												<p><a href="#" class="btn btn-primary btn-outline-primary">Add to cart</a></p>
+									<?php
+									$prod = new Product();
+									$prod_list = $prod->show_product();
+									$i = 0;
+									while ($rs = $prod_list->fetch_array()) {
+										if ($rs['cateId'] == 3) {
+									?>
+											<div class="col-md-4 text-center">
+												<div class="menu-wrap">
+													<a href="product-single.php?id=<?= $rs['productId'] ?>" class="menu-img img mb-4" style="background-image: url(admin/uploads/<?= $rs['productImage'] ?>);"></a>
+													<div class="text text-center pt-4">
+														<h3><a href="#"> <?= $rs['productName'] ?> </a></h3>
+														<p><?= $rs['productDesc'] ?></p>
+														<p class="price"><span>$<?= $rs['productPrice'] ?> </span></p>
+														<p><a href="product-single.php?id=<?= $rs['productId'] ?>" class="btn btn-primary btn-outline-primary">Add to Cart</a></p>
+													</div>
+												</div>
 											</div>
-										</div>
-									</div>
-									<div class="col-md-4 text-center">
-										<div class="menu-wrap">
-											<a href="#" class="menu-img img mb-4" style="background-image: url(images/drink-2.jpg);"></a>
-											<div class="text">
-												<h3><a href="#">Pineapple Juice</a></h3>
-												<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia.</p>
-												<p class="price"><span>$2.90</span></p>
-												<p><a href="#" class="btn btn-primary btn-outline-primary">Add to cart</a></p>
-											</div>
-										</div>
-									</div>
-									<div class="col-md-4 text-center">
-										<div class="menu-wrap">
-											<a href="#" class="menu-img img mb-4" style="background-image: url(images/drink-3.jpg);"></a>
-											<div class="text">
-												<h3><a href="#">Soda Drinks</a></h3>
-												<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia.</p>
-												<p class="price"><span>$2.90</span></p>
-												<p><a href="#" class="btn btn-primary btn-outline-primary">Add to cart</a></p>
-											</div>
-										</div>
-									</div>
-									<div class="col-md-4 text-center">
-										<div class="menu-wrap">
-											<a href="#" class="menu-img img mb-4" style="background-image: url(images/drink-4.jpg);"></a>
-											<div class="text">
-												<h3><a href="#">Lemonade Juice</a></h3>
-												<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia.</p>
-												<p class="price"><span>$2.90</span></p>
-												<p><a href="#" class="btn btn-primary btn-outline-primary">Add to cart</a></p>
-											</div>
-										</div>
-									</div>
-									<div class="col-md-4 text-center">
-										<div class="menu-wrap">
-											<a href="#" class="menu-img img mb-4" style="background-image: url(images/drink-5.jpg);"></a>
-											<div class="text">
-												<h3><a href="#">Pineapple Juice</a></h3>
-												<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia.</p>
-												<p class="price"><span>$2.90</span></p>
-												<p><a href="#" class="btn btn-primary btn-outline-primary">Add to cart</a></p>
-											</div>
-										</div>
-									</div>
-									<div class="col-md-4 text-center">
-										<div class="menu-wrap">
-											<a href="#" class="menu-img img mb-4" style="background-image: url(images/drink-6.jpg);"></a>
-											<div class="text">
-												<h3><a href="#">Soda Drinks</a></h3>
-												<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia.</p>
-												<p class="price"><span>$2.90</span></p>
-												<p><a href="#" class="btn btn-primary btn-outline-primary">Add to cart</a></p>
-											</div>
-										</div>
-									</div>
+									<?php
+											$i++;
+										}
+										if ($i == 3) break;
+									}
+									?>
 								</div>
 							</div>
 
 							<div class="tab-pane fade" id="v-pills-3" role="tabpanel" aria-labelledby="v-pills-3-tab">
 								<div class="row">
-									<div class="col-md-4 text-center">
-										<div class="menu-wrap">
-											<a href="#" class="menu-img img mb-4" style="background-image: url(images/dessert-1.jpg);"></a>
-											<div class="text">
-												<h3><a href="#">Hot Cake Honey</a></h3>
-												<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia.</p>
-												<p class="price"><span>$2.90</span></p>
-												<p><a href="#" class="btn btn-primary btn-outline-primary">Add to cart</a></p>
+									<?php
+									$prod = new Product();
+									$prod_list = $prod->show_product();
+									$i = 0;
+									while ($rs = $prod_list->fetch_array()) {
+										if ($rs['cateId'] == 9) {
+									?>
+											<div class="col-md-4 text-center">
+												<div class="menu-wrap">
+													<a href="product-single.php?id=<?= $rs['productId'] ?>" class="menu-img img mb-4" style="background-image: url(admin/uploads/<?= $rs['productImage'] ?>);"></a>
+													<div class="text text-center pt-4">
+														<h3><a href="#"> <?= $rs['productName'] ?> </a></h3>
+														<p><?= $rs['productDesc'] ?></p>
+														<p class="price"><span>$<?= $rs['productPrice'] ?> </span></p>
+														<p><a href="product-single.php?id=<?= $rs['productId'] ?>" class="btn btn-primary btn-outline-primary">Add to Cart</a></p>
+													</div>
+												</div>
 											</div>
-										</div>
-									</div>
-									<div class="col-md-4 text-center">
-										<div class="menu-wrap">
-											<a href="#" class="menu-img img mb-4" style="background-image: url(images/dessert-2.jpg);"></a>
-											<div class="text">
-												<h3><a href="#">Hot Cake Honey</a></h3>
-												<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia.</p>
-												<p class="price"><span>$2.90</span></p>
-												<p><a href="#" class="btn btn-primary btn-outline-primary">Add to cart</a></p>
-											</div>
-										</div>
-									</div>
-									<div class="col-md-4 text-center">
-										<div class="menu-wrap">
-											<a href="#" class="menu-img img mb-4" style="background-image: url(images/dessert-3.jpg);"></a>
-											<div class="text">
-												<h3><a href="#">Hot Cake Honey</a></h3>
-												<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia.</p>
-												<p class="price"><span>$2.90</span></p>
-												<p><a href="#" class="btn btn-primary btn-outline-primary">Add to cart</a></p>
-											</div>
-										</div>
-									</div>
-									<div class="col-md-4 text-center">
-										<div class="menu-wrap">
-											<a href="#" class="menu-img img mb-4" style="background-image: url(images/dessert-4.jpg);"></a>
-											<div class="text">
-												<h3><a href="#">Hot Cake Honey</a></h3>
-												<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia.</p>
-												<p class="price"><span>$2.90</span></p>
-												<p><a href="#" class="btn btn-primary btn-outline-primary">Add to cart</a></p>
-											</div>
-										</div>
-									</div>
-									<div class="col-md-4 text-center">
-										<div class="menu-wrap">
-											<a href="#" class="menu-img img mb-4" style="background-image: url(images/dessert-5.jpg);"></a>
-											<div class="text">
-												<h3><a href="#">Hot Cake Honey</a></h3>
-												<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia.</p>
-												<p class="price"><span>$2.90</span></p>
-												<p><a href="#" class="btn btn-primary btn-outline-primary">Add to cart</a></p>
-											</div>
-										</div>
-									</div>
-									<div class="col-md-4 text-center">
-										<div class="menu-wrap">
-											<a href="#" class="menu-img img mb-4" style="background-image: url(images/dessert-6.jpg);"></a>
-											<div class="text">
-												<h3><a href="#">Hot Cake Honey</a></h3>
-												<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia.</p>
-												<p class="price"><span>$2.90</span></p>
-												<p><a href="#" class="btn btn-primary btn-outline-primary">Add to cart</a></p>
-											</div>
-										</div>
-									</div>
+									<?php
+											$i++;
+										}
+										if ($i == 3) break;
+									}
+									?>
 								</div>
 							</div>
 						</div>

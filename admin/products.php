@@ -28,19 +28,19 @@ $fm = new Format();
 
 <div class="container" style="padding-left: 10%">
     <div class="row">
-        <?php
-        echo '<div class="col-sm">';
-        echo '<p style="padding-left:90%">Sort by:</p> </div>';
-
-        $cate = new Category();
-        $catelist = $cate->show_category();
-        echo '<div class="col-sm">';
-        while ($rs = $catelist->fetch_array()) {
-            echo '<a href="?page=' . $rs['cateId'] . '"class="btn btn-outline-light" style="margin-left: 10px">' . $rs['cateName'] . '</a>';
-        }
-        echo '<a href="products.php" class="btn btn-outline-light" style="margin-left: 10px">Clear</a>';
-        echo '</div>';
-        ?>
+        <div class="col-sm">
+            <p style="padding-left:90%">Sort by:</p>
+        </div>
+        <div class="col-sm">
+            <?php
+            $cate = new Category();
+            $catelist = $cate->show_category();
+            while ($rs = $catelist->fetch_array()) {
+                echo '<a href="?page=' . $rs['cateId'] . '"class="btn btn-outline-light" style="margin-left: 10px">' . $rs['cateName'] . '</a>';
+            }
+            ?>
+            <a href="products.php" class="btn btn-outline-light" style="margin-left: 10px">Clear</a>
+        </div>
     </div>
 </div>
 <!-- view prods -->

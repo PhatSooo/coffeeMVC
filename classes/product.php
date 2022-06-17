@@ -1,6 +1,6 @@
 <?php
-include_once  '../lib/database.php';
-include_once  '../helper/format.php';
+include_once  $_SERVER['DOCUMENT_ROOT'].'/CoffeeMVC/lib/database.php';
+include_once  $_SERVER['DOCUMENT_ROOT'].'/CoffeeMVC/helper/format.php';
 ?>
 
 <?php
@@ -79,6 +79,13 @@ class Product
         ON tbl_product.cateId = tbl_category.cateId
         WHERE tbl_product.cateId = $cateId
         ORDER BY tbl_product.productOrder";
+        $rs = $this->db->select($query);
+        return $rs;
+    }
+
+    public function show_product_byProdId($prodId)
+    {
+        $query = "SELECT * FROM tbl_product WHERE productId = $prodId";
         $rs = $this->db->select($query);
         return $rs;
     }

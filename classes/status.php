@@ -27,4 +27,13 @@ switch ($page) {
         $db->update($query);
         header('Location:../admin/categories.php');
         break;
+    case 'btable':
+        if ($status == 0) {
+            $query = "UPDATE tbl_booktable SET booktbIsset = 1 WHERE booktbId = $id";
+        } else {
+            $query = "UPDATE tbl_booktable SET booktbIsset = 0 WHERE booktbId = $id";
+        }
+        $db->update($query);
+        header('Location:../admin/booktables.php');
+        break;
 }
