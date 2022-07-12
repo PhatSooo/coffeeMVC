@@ -1,7 +1,7 @@
 <?php
 include '../classes/product.php';
 $prod = new Product();
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $update_prod = $prod->update_product($_POST,$_FILES);
 }
 

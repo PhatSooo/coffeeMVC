@@ -38,6 +38,7 @@
 <script src="assets/js/typeahead.js"></script>
 <script src="assets/js/select2.js"></script>
 <!-- End custom js for this page -->
+
 </body>
 
 </html>

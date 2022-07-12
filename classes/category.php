@@ -1,9 +1,9 @@
 <?php
-include_once  '../lib/database.php';
-include_once  '../helper/format.php';
+include_once  $_SERVER['DOCUMENT_ROOT'].'/CoffeeMVC/lib/database.php';
+include_once  $_SERVER['DOCUMENT_ROOT'].'/CoffeeMVC/helper/format.php';
 ?>
-
 <?php
+
 class Category
 {
     private $db;

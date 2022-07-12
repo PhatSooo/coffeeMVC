@@ -9,7 +9,7 @@ include 'inc/header.php';
 <?php
 include '../classes/category.php';
 $cate = new Category();
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $cateName = $_POST['cateName'];
     $insert_cate = $cate->insert_category($cateName);
 }
@@ -45,7 +45,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                     $i++;
                             ?>
                                     <tr>
-                                        <td><?php echo $rs['cateId'] ?></td>
+                                        <td><?php echo $i ?></td>
                                         <td><?php echo $rs['cateName'] ?></td>
                                         <td><?php
                                             switch ($rs['cateStatus']) {
