@@ -3,12 +3,20 @@ if (!isset($_GET['id'])) {
 	header('Location:index.php');
 }
 include 'inc/header.php';
-include $_SERVER['DOCUMENT_ROOT'] . '/CoffeeMVC/classes/product.php';
 
 $id = $_GET['id'];
-$prod = new Product();
 $prod_byId = $prod->show_product_byProdId($id);
 $rs = $prod_byId->fetch_array();
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+	$size = $_POST['size'];
+	$quantity = $_POST['quantity'];
+	$add_cart = $cart->add_to_cart($id, $quantity,$size);
+}
+
+if (isset($add_cart)){
+	echo $add_cart;
+}
 ?>
 
 <section class="home-slider owl-carousel">
@@ -40,36 +48,40 @@ $rs = $prod_byId->fetch_array();
 				<p><?= $rs['productDesc'] ?></p>
 				<p>On her way she met a copy. The copy warned the Little Blind Text, that where it came from it would have been rewritten a thousand times and everything that was left from its origin would be the word "and" and the Little Blind Text should turn around and return to its own, safe country. But nothing the copy said could convince her and so it didn’t take long until a few insidious Copy Writers ambushed her, made her drunk with Longe and Parole and dragged her into their agency, where they abused her for their.
 				</p>
-				<div class="row mt-4">
-					<div class="col-md-6">
-						<div class="form-group d-flex">
-							<div class="select-wrap">
-								<div class="icon"><span class="ion-ios-arrow-down"></span></div>
-								<select name="" id="" class="form-control">
-									<option value="">Small</option>
-									<option value="">Medium</option>
-									<option value="">Large</option>
-									<option value="">Extra Large</option>
-								</select>
+				<form method="POST">
+					<div class="row mt-4">
+						<div class="col-md-6">
+							<div class="form-group d-flex">
+								<div class="select-wrap">
+									<div class="icon"><span class="ion-ios-arrow-down"></span></div>
+									<select name="size" id="" class="form-control">
+										<option value="Small">Small</option>
+										<option value="Medium">Medium</option>
+										<option value="Large">Large</option>
+										<option value="ExtraLarge">Extra Large</option>
+									</select>
+								</div>
 							</div>
 						</div>
+						<div class="w-100"></div>
+						<div class="input-group col-md-6 d-flex mb-3">
+							<span class="input-group-btn mr-2">
+								<button type="button" class="quantity-left-minus btn" data-type="minus" data-field="">
+									<i class="icon-minus"></i>
+								</button>
+							</span>
+
+							<input type="text" id="quantity" name="quantity" class="form-control input-number" value="1" min="1" max="100">
+
+							<span class="input-group-btn ml-2">
+								<button type="button" class="quantity-right-plus btn" data-type="plus" data-field="">
+									<i class="icon-plus"></i>
+								</button>
+							</span>
+						</div>
 					</div>
-					<div class="w-100"></div>
-					<div class="input-group col-md-6 d-flex mb-3">
-						<span class="input-group-btn mr-2">
-							<button type="button" class="quantity-left-minus btn" data-type="minus" data-field="">
-								<i class="icon-minus"></i>
-							</button>
-						</span>
-						<input type="text" id="quantity" name="quantity" class="form-control input-number" value="1" min="1" max="100">
-						<span class="input-group-btn ml-2">
-							<button type="button" class="quantity-right-plus btn" data-type="plus" data-field="">
-								<i class="icon-plus"></i>
-							</button>
-						</span>
-					</div>
-				</div>
-				<p><a href="cart.php" class="btn btn-primary py-3 px-5">Add to Cart</a></p>
+					<p><input type="submit" value="Add to Cart" class="btn btn-primary py-3 px-5"></p>
+				</form>
 			</div>
 		</div>
 	</div>
@@ -86,7 +98,6 @@ $rs = $prod_byId->fetch_array();
 		</div>
 		<div class="row">
 			<?php
-			$prod = new Product();
 			$prod_list = $prod->show_product();
 			$i = 0;
 			while ($result = $prod_list->fetch_array()) {
@@ -97,7 +108,7 @@ $rs = $prod_byId->fetch_array();
 							<a href="product-single.php?id=<?= $result['productId'] ?>" class="img" style="background-image: url(admin/uploads/<?= $result['productImage'] ?>);"></a>
 							<div class="text text-center pt-4">
 								<h3><a href="#"> <?= $result['productName'] ?> </a></h3>
-								<p><?= $rs['productDesc'] ?></p>
+								<p><?= $result['productDesc'] ?></p>
 								<p class="price"><span>$<?= $result['productPrice'] ?> </span></p>
 								<p><a href="product-single.php?id=<?= $result['productId'] ?>" class="btn btn-primary btn-outline-primary">Add to Cart</a></p>
 							</div>

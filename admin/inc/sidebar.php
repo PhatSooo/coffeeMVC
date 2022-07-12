@@ -89,19 +89,19 @@
             </a>
         </li>
         <li class="nav-item menu-items">
-            <a class="nav-link" href="pages/forms/basic_elements.php">
+            <a class="nav-link" href="orders.php">
                 <span class="menu-icon">
                     <i class="mdi mdi-playlist-play"></i>
                 </span>
-                <span class="menu-title">Form Elements</span>
+                <span class="menu-title">Manage Orders</span>
             </a>
         </li>
         <li class="nav-item menu-items">
-            <a class="nav-link" href="pages/tables/basic-table.php">
+            <a class="nav-link" href="accounts.php">
                 <span class="menu-icon">
                     <i class="mdi mdi-table-large"></i>
                 </span>
-                <span class="menu-title">Tables</span>
+                <span class="menu-title">Manage Accounts</span>
             </a>
         </li>
         <li class="nav-item menu-items">
@@ -138,6 +138,6 @@
                 </ul>
             </div>
         </li>
-        
+
     </ul>
 </nav>

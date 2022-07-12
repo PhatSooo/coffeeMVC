@@ -12,7 +12,7 @@ include_once '../helper/format.php';
 
 <?php
 $prod = new Product();
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $insert_prod = $prod->insert_product($_POST, $_FILES);
 }
 
@@ -83,10 +83,10 @@ $fm = new Format();
                                             <td><?php
                                                 switch ($rs['productStatus']) {
                                                     case 0:
-                                                        echo ('<a href="../classes/status.php?id=' . $rs['productId'] . '&status=0&page=product" class="btn btn-success">Active</a>');
+                                                        echo ('<a href="../classes/status.php?id=' . $rs['productId'] . '&status=0&page=product" class="btn btn-danger">Inactive</a>');
                                                         break;
                                                     case 1;
-                                                        echo ('<a href="../classes/status.php?id=' . $rs['productId'] . '&status=1&page=product" class="btn btn-danger">Inactive</a>');
+                                                        echo ('<a href="../classes/status.php?id=' . $rs['productId'] . '&status=1&page=product" class="btn btn-success">Active</a>');
                                                         break;
                                                     case 2:
                                                         echo ('<a href="../classes/status.php?id=' . $rs['productId'] . '&status=2&page=product" class="btn btn-warning">Pending</a>');
@@ -184,10 +184,10 @@ $fm = new Format();
                                             <td><?php
                                                 switch ($rs['productStatus']) {
                                                     case 0:
-                                                        echo ('<a href="../classes/status.php?id=' . $rs['productId'] . '&status=0&page=product" class="btn btn-success">Active</a>');
+                                                        echo ('<a href="../classes/status.php?id=' . $rs['productId'] . '&status=0&page=product" class="btn btn-danger">Inactive</a>');
                                                         break;
                                                     case 1;
-                                                        echo ('<a href="../classes/status.php?id=' . $rs['productId'] . '&status=1&page=product" class="btn btn-danger">Inactive</a>');
+                                                        echo ('<a href="../classes/status.php?id=' . $rs['productId'] . '&status=1&page=product" class="btn btn-success">Active</a>');
                                                         break;
                                                     case 2:
                                                         echo ('<a href="../classes/status.php?id=' . $rs['productId'] . '&status=2&page=product" class="btn btn-warning">Pending</a>');

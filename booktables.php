@@ -1,8 +1,6 @@
 <?php
-include $_SERVER['DOCUMENT_ROOT'] . '/CoffeeMVC/classes/booktable.php';
 
-$bt = new Booktable();
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	$create_tb = $bt->create_appointment($_POST);
 }
 

@@ -10,7 +10,7 @@ $fm = new Format();
 $bt = new Booktable();
 $tb = new Table();
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     
 }
 ?>

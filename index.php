@@ -8,7 +8,6 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/coffeeMVC/classes/product.php';
 		<div class="overlay"></div>
 		<div class="container">
 			<div class="row slider-text justify-content-center align-items-center" data-scrollax-parent="true">
-
 				<div class="col-md-8 col-sm-12 text-center ftco-animate">
 					<span class="subheading">Welcome</span>
 					<h1 class="mb-4">The Best Coffee Testing Experience</h1>
@@ -210,20 +209,19 @@ include 'booktables.php';
 		</div>
 		<div class="row">
 			<?php
-			$prod = new Product();
 			$prod_list = $prod->show_product();
 			$i = 0;
 			while ($rs = $prod_list->fetch_array()) {
-				if ($rs['cateId'] == 75) {
+				if ($rs['cateId'] == 75  && $rs['productStatus'] == 1) {
 			?>
 					<div class="col-md-3">
 						<div class="menu-entry">
-							<a href="#" class="img" style="background-image: url(admin/uploads/<?= $rs['productImage'] ?>);"></a>
+							<a href="product-single.php?id=<?= $rs['productId'] ?>" class="img" style="background-image: url(admin/uploads/<?= $rs['productImage'] ?>);"></a>
 							<div class="text text-center pt-4">
 								<h3><a href="#"> <?= $rs['productName'] ?> </a></h3>
 								<p><?= $rs['productDesc'] ?></p>
 								<p class="price"><span>$<?= $rs['productPrice'] ?> </span></p>
-								<p><a href="#" class="btn btn-primary btn-outline-primary">Add to Cart</a></p>
+								<p><a href="product-single.php?id=<?= $rs['productId'] ?>" class="btn btn-primary btn-outline-primary">Add to Cart</a></p>
 							</div>
 						</div>
 					</div>
@@ -300,11 +298,10 @@ include 'booktables.php';
 							<div class="tab-pane fade show active" id="v-pills-1" role="tabpanel" aria-labelledby="v-pills-1-tab">
 								<div class="row">
 									<?php
-									$prod = new Product();
 									$prod_list = $prod->show_product();
 									$i = 0;
 									while ($rs = $prod_list->fetch_array()) {
-										if ($rs['cateId'] == 2) {
+										if ($rs['cateId'] == 2 && $rs['productStatus'] == 1) {
 									?>
 											<div class="col-md-4 text-center">
 												<div class="menu-wrap">
@@ -329,11 +326,10 @@ include 'booktables.php';
 							<div class="tab-pane fade" id="v-pills-2" role="tabpanel" aria-labelledby="v-pills-2-tab">
 								<div class="row">
 									<?php
-									$prod = new Product();
 									$prod_list = $prod->show_product();
 									$i = 0;
 									while ($rs = $prod_list->fetch_array()) {
-										if ($rs['cateId'] == 3) {
+										if ($rs['cateId'] == 3 && $rs['productStatus'] == 1) {
 									?>
 											<div class="col-md-4 text-center">
 												<div class="menu-wrap">
@@ -358,11 +354,10 @@ include 'booktables.php';
 							<div class="tab-pane fade" id="v-pills-3" role="tabpanel" aria-labelledby="v-pills-3-tab">
 								<div class="row">
 									<?php
-									$prod = new Product();
 									$prod_list = $prod->show_product();
 									$i = 0;
 									while ($rs = $prod_list->fetch_array()) {
-										if ($rs['cateId'] == 9) {
+										if ($rs['cateId'] == 9 && $rs['productStatus'] == 1) {
 									?>
 											<div class="col-md-4 text-center">
 												<div class="menu-wrap">

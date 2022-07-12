@@ -1,6 +1,5 @@
 <?php
 include 'inc/header.php';
-include $_SERVER['DOCUMENT_ROOT'] . '/CoffeeMVC/classes/product.php';
 ?>
 
 <section class="home-slider owl-carousel">
@@ -29,10 +28,9 @@ include 'booktables.php';
 			<div class="col-md-6 mb-5 pb-3">
 				<h3 class="mb-5 heading-pricing ftco-animate">Starter</h3>
 				<?php
-				$prod = new Product();
 				$prod_list = $prod->show_product();
 				while ($rs = $prod_list->fetch_array()) {
-					if ($rs['cateId'] == 22) {
+					if ($rs['cateId'] == 22 && $rs['productStatus'] == 1) {
 				?>
 						<div class="pricing-entry d-flex ftco-animate">
 							<div class="img" style="background-image: url(admin/uploads/<?= $rs['productImage'] ?>);"></div>
@@ -55,10 +53,9 @@ include 'booktables.php';
 			<div class="col-md-6 mb-5 pb-3">
 				<h3 class="mb-5 heading-pricing ftco-animate">Main Dish</h3>
 				<?php
-				$prod = new Product();
 				$prod_list = $prod->show_product();
 				while ($rs = $prod_list->fetch_array()) {
-					if ($rs['cateId'] == 2) {
+					if ($rs['cateId'] == 2 && $rs['productStatus'] == 1) {
 				?>
 						<div class="pricing-entry d-flex ftco-animate">
 							<div class="img" style="background-image: url(admin/uploads/<?= $rs['productImage'] ?>);"></div>
@@ -81,10 +78,9 @@ include 'booktables.php';
 			<div class="col-md-6">
 				<h3 class="mb-5 heading-pricing ftco-animate">Desserts</h3>
 				<?php
-				$prod = new Product();
 				$prod_list = $prod->show_product();
 				while ($rs = $prod_list->fetch_array()) {
-					if ($rs['cateId'] == 9) {
+					if ($rs['cateId'] == 9 && $rs['productStatus'] == 1) {
 				?>
 						<div class="pricing-entry d-flex ftco-animate">
 							<div class="img" style="background-image: url(admin/uploads/<?= $rs['productImage'] ?>);"></div>
@@ -107,10 +103,9 @@ include 'booktables.php';
 			<div class="col-md-6">
 				<h3 class="mb-5 heading-pricing ftco-animate">Drinks</h3>
 				<?php
-				$prod = new Product();
 				$prod_list = $prod->show_product();
 				while ($rs = $prod_list->fetch_array()) {
-					if ($rs['cateId'] == 3) {
+					if ($rs['cateId'] == 3 && $rs['productStatus'] == 1) {
 				?>
 						<div class="pricing-entry d-flex ftco-animate">
 							<div class="img" style="background-image: url(admin/uploads/<?= $rs['productImage'] ?>);"></div>
@@ -161,7 +156,6 @@ include 'booktables.php';
 							<div class="tab-pane fade show active" id="v-pills-1" role="tabpanel" aria-labelledby="v-pills-1-tab">
 								<div class="row">
 									<?php
-									$prod = new Product();
 									$prod_list = $prod->show_product();
 									$i = 0;
 									while ($rs = $prod_list->fetch_array()) {
@@ -190,7 +184,6 @@ include 'booktables.php';
 							<div class="tab-pane fade" id="v-pills-2" role="tabpanel" aria-labelledby="v-pills-2-tab">
 								<div class="row">
 									<?php
-									$prod = new Product();
 									$prod_list = $prod->show_product();
 									$i = 0;
 									while ($rs = $prod_list->fetch_array()) {
@@ -219,11 +212,10 @@ include 'booktables.php';
 							<div class="tab-pane fade" id="v-pills-3" role="tabpanel" aria-labelledby="v-pills-3-tab">
 								<div class="row">
 									<?php
-									$prod = new Product();
 									$prod_list = $prod->show_product();
 									$i = 0;
 									while ($rs = $prod_list->fetch_array()) {
-										if ($rs['cateId'] == 9) {
+										if ($rs['cateId'] == 9 && $rs['productStatus'] == 1) {
 									?>
 											<div class="col-md-4 text-center">
 												<div class="menu-wrap">

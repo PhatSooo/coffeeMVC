@@ -1,10 +1,8 @@
 <?php
 include 'inc/header.php';
-include $_SERVER['DOCUMENT_ROOT'] . '/CoffeeMVC/classes/product.php';
 ?>
 
 <section class="home-slider owl-carousel">
-
 	<div class="slider-item" style="background-image: url(images/bg_3.jpg);" data-stellar-background-ratio="0.5">
 		<div class="overlay"></div>
 		<div class="container">
@@ -44,7 +42,6 @@ include $_SERVER['DOCUMENT_ROOT'] . '/CoffeeMVC/classes/product.php';
 							<div class="tab-pane fade show active" id="v-pills-0" role="tabpanel" aria-labelledby="v-pills-0-tab">
 								<div class="row">
 									<?php
-									$prod = new Product();
 									$prod_list = $prod->show_product();
 									while ($rs = $prod_list->fetch_array()) {
 										if ($rs['cateId'] == 75) {
@@ -56,7 +53,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/CoffeeMVC/classes/product.php';
 														<h3><a href="#"> <?= $rs['productName'] ?> </a></h3>
 														<p><?= $rs['productDesc'] ?></p>
 														<p class="price"><span>$<?= $rs['productPrice'] ?> </span></p>
-														<p><a href="#" class="btn btn-primary btn-outline-primary">Add to Cart</a></p>
+														<p><a href="product-single.php?id=<?= $rs['productId'] ?>" class="btn btn-primary btn-outline-primary">Add to Cart</a></p>
 													</div>
 												</div>
 											</div>
@@ -70,7 +67,6 @@ include $_SERVER['DOCUMENT_ROOT'] . '/CoffeeMVC/classes/product.php';
 							<div class="tab-pane fade" id="v-pills-1" role="tabpanel" aria-labelledby="v-pills-1-tab">
 								<div class="row">
 									<?php
-									$prod = new Product();
 									$prod_list = $prod->show_product();
 									while ($rs = $prod_list->fetch_array()) {
 										if ($rs['cateId'] == 2) {
@@ -82,7 +78,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/CoffeeMVC/classes/product.php';
 														<h3><a href="#"> <?= $rs['productName'] ?> </a></h3>
 														<p><?= $rs['productDesc'] ?></p>
 														<p class="price"><span>$<?= $rs['productPrice'] ?> </span></p>
-														<p><a href="#" class="btn btn-primary btn-outline-primary">Add to Cart</a></p>
+														<p><a href="product-single.php?id=<?= $rs['productId'] ?>" class="btn btn-primary btn-outline-primary">Add to Cart</a></p>
 													</div>
 												</div>
 											</div>
@@ -96,7 +92,6 @@ include $_SERVER['DOCUMENT_ROOT'] . '/CoffeeMVC/classes/product.php';
 							<div class="tab-pane fade" id="v-pills-2" role="tabpanel" aria-labelledby="v-pills-2-tab">
 								<div class="row">
 									<?php
-									$prod = new Product();
 									$prod_list = $prod->show_product();
 									while ($rs = $prod_list->fetch_array()) {
 										if ($rs['cateId'] == 3) {
@@ -108,7 +103,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/CoffeeMVC/classes/product.php';
 														<h3><a href="#"> <?= $rs['productName'] ?> </a></h3>
 														<p><?= $rs['productDesc'] ?></p>
 														<p class="price"><span>$<?= $rs['productPrice'] ?> </span></p>
-														<p><a href="#" class="btn btn-primary btn-outline-primary">Add to Cart</a></p>
+														<p><a href="product-single.php?id=<?= $rs['productId'] ?>" class="btn btn-primary btn-outline-primary">Add to Cart</a></p>
 													</div>
 												</div>
 											</div>
@@ -122,7 +117,6 @@ include $_SERVER['DOCUMENT_ROOT'] . '/CoffeeMVC/classes/product.php';
 							<div class="tab-pane fade" id="v-pills-3" role="tabpanel" aria-labelledby="v-pills-3-tab">
 								<div class="row">
 								<?php
-									$prod = new Product();
 									$prod_list = $prod->show_product();
 									while ($rs = $prod_list->fetch_array()) {
 										if ($rs['cateId'] == 9) {
@@ -134,7 +128,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/CoffeeMVC/classes/product.php';
 														<h3><a href="#"> <?= $rs['productName'] ?> </a></h3>
 														<p><?= $rs['productDesc'] ?></p>
 														<p class="price"><span>$<?= $rs['productPrice'] ?> </span></p>
-														<p><a href="#" class="btn btn-primary btn-outline-primary">Add to Cart</a></p>
+														<p><a href="product-single.php?id=<?= $rs['productId'] ?>" class="btn btn-primary btn-outline-primary">Add to Cart</a></p>
 													</div>
 												</div>
 											</div>
