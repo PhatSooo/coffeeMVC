@@ -48,12 +48,22 @@ if (isset($_GET['ID']) && $_GET['ID'] != '') {
                 <?php
                 $cus_id = Session::get('customer_id');
                 $get_order = $order->list_order($cus_id);
+                $a = array();
                 if ($get_order != true) {
                     echo '<h4 style="text-align:center;">You Has No Ordered</h4>';
                     echo '<a href="index.php" id="hover" style="color: lawngreen">Go to Order</a>';
                 } else {
                     $i = 0;
-                    while ($res = $get_order->fetch_array()) {
+                    
+                    foreach ($get_order as $res) {
+                        $id = $res['id'];
+                        $cus_id = $res['customerId'];
+                        $list = $order->getBy_id_cusid($id, $cus_id);
+                        $a[] = array(
+                            'id' => $id,
+                            'cus_id' => $cus_id,
+                            $list->fetch_array()
+                        );
                         $i++;
                 ?>
                         <tr>

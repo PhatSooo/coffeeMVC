@@ -16,9 +16,8 @@ class Order
 
     public function list_order($cus_id)
     {
-        $query = "SELECT * FROM tbl_order WHERE customerId = $cus_id";
-        $list = $this->db->select($query);
-        return $list;
+        $query = "SELECT * FROM tbl_order WHERE id IN ( SELECT id FROM tbl_order GROUP BY id ) AND customerId = $cus_id";
+        return $this->db->select($query);
     }
 
     public function del_order($orderId)
@@ -43,5 +42,11 @@ class Order
         $query = "SELECT * FROM tbl_orderDetails WHERE orderId = $orderId";
         $list = $this->db->select($query);
         return $list;
+    }
+
+    public function getBy_id_cusid($id, $cus_id)
+    {
+        $query = "SELECT productId,productName,quantity,price,image,dateOrder,payments,status FROM tbl_order WHERE id IN ( SELECT id FROM tbl_order GROUP BY id ) AND customerId = $cus_id AND id = '$id'";
+        return $this->db->select($query);
     }
 }

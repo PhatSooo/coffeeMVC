@@ -137,7 +137,7 @@ if (isset($_POST['submit']) && $_POST['house'] == '') {
                   <div id="paypal-button-container"><input type="hidden" name="optradio" value="paypal"></div>
                 </div>
               </div>
-              <p><button type="submit" name="submit" class="btn btn-primary py-3 px-4">Place an order</button></p>
+              <p><button type="submit" id="paypal" name="submit" class="btn btn-primary py-3 px-4">Place an order</button></p>
             </div>
           </div>
         </div>
@@ -248,7 +248,8 @@ if (isset($_POST['submit']) && $_POST['house'] == '') {
         console.log('Capture result', orderData, JSON.stringify(orderData, null, 2));
         const transaction = orderData.purchase_units[0].payments.captures[0];
         alert(`Transaction ${transaction.status}: ${transaction.id}\n\nSee console for all available details`);
-
+        var button = document.getElementById('paypal');
+        button.click();
 
         // When ready to go live, remove the alert and show a success message within this page. For example:
         // const element = document.getElementById('paypal-button-container');

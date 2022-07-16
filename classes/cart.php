@@ -109,6 +109,7 @@ class Cart
         $get_product = $this->db->select($query);
 
         if ($get_product) {
+            $id = uniqid();
             while ($res = $get_product->fetch_array()) {
                 $productId = $res['productId'];
                 $productName = $res['productName'];
@@ -117,27 +118,27 @@ class Cart
                 $img = $res['image'];
                 $customer_id = $cus_id;
 
-                $query_order = "INSERT INTO tbl_order (productId,productName,quantity,price,image,customerId,payments)
-                    VALUES ($productId,'$productName',$quantity,'$price','$img',$customer_id,'$method')";
+                
+                $query_order = "INSERT INTO tbl_order (id,productId,productName,quantity,price,image,customerId,payments)
+                    VALUES ('$id',$productId,'$productName',$quantity,'$price','$img',$customer_id,'$method')";
 
                 $this->db->insert($query_order);
-
-                $query_current = "SELECT id FROM tbl_order ORDER BY id DESC LIMIT 1";
-                $get_current = $this->db->select($query_current)->fetch_array();
-                $addressReceive = $data['house'] . ', ' . $data['address'];
-                $name = $data['name'];
-                $phone = $data['phone'];
-
-                if ($method == 'offline') {
-                    $query_order_details = "INSERT INTO tbl_orderDetails (orderId,addressReceiver,customerName,phone) 
-                        VALUES ($get_current[0],'$addressReceive','$name','$phone')";
-                } else {
-                    $query_order_details = "INSERT INTO tbl_orderDetails (orderId,addressReceiver,customerName,phone,ispayment) 
-                        VALUES ($get_current[0],'$addressReceive','$name','$phone',1)";
-                }
-
-                $this->db->insert($query_order_details);
+                
             }
+            $get_current = $id;
+            $addressReceive = $data['house'] . ', ' . $data['address'];
+            $name = $data['name'];
+            $phone = $data['phone'];
+
+            if ($method == 'offline') {
+                $query_order_details = "INSERT INTO tbl_orderDetails (orderId,addressReceiver,customerName,phone) 
+                    VALUES ('$get_current','$addressReceive','$name','$phone')";
+            } else {
+                $query_order_details = "INSERT INTO tbl_orderDetails (orderId,addressReceiver,customerName,phone,ispayment) 
+                    VALUES ('$get_current','$addressReceive','$name','$phone',1)";
+            }
+
+            $this->db->insert($query_order_details);
         }
     }
 }

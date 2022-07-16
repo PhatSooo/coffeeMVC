@@ -46,14 +46,14 @@ $order = new Order();
                                     <td>
                                         <?php
                                         if ($res['status'] == 0)
-                                            echo '<a href="../classes/status.php?page=orders&status=0&id=' . $res['id'] . '" class="btn btn-warning">Pending</a>';
+                                            echo '<a class="btn btn-warning">Pending</a>';
                                         else if ($res['status'] == 2)
-                                            echo '<a href="../classes/status.php?page=orders&status=2&id=' . $res['id'] . '" class="btn btn-danger">Deny</a>';
+                                            echo '<a class="btn btn-danger">Deny</a>';
                                         else if ($res['status'] == 3)
                                             echo '<a class="btn btn-info">Shipping</a>';
                                         else if ($res['status'] == 4)
                                             echo '<a class="btn btn-light">Completed</a>';
-                                        else echo '<a href="../classes/status.php?page=orders&status=1&id=' . $res['id'] . '" class="btn btn-success">Accepted</a>';
+                                        else echo '<a class="btn btn-success">Accepted</a>';
                                         ?>
                                     </td>
                                     <td><a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#viewDetails<?php echo $res['id'] ?>">View Details</a></td>
@@ -82,7 +82,8 @@ $order = new Order();
                                                     <input style="color: red;" disabled value="<?= $result['phone'] ?>" type="text" class="form-control mb-2 mr-sm-2">
                                                 </div>
                                                 <div class="modal-footer">
-                                                    <a <?php if ($res['status'] != 1) echo 'style="pointer-events: none;"'; ?> href="../classes/status.php?page=ship&status=null&id=<?= $res['id'] ?>" type="submit" class="btn btn-info">Ship</a>
+                                                    <a href="../classes/status.php?page=orders&status=1&id=<?= $res['id'] ?>" type="submit" class="btn btn-success">Accept</a>
+                                                    <a href="../classes/status.php?page=orders&status=2&id=<?= $res['id'] ?>" type="submit" class="btn btn-danger">Deny</a>
                                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="closebtn">Close</button>
                                                 </div>
                                             </div>

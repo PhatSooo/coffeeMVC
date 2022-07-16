@@ -37,9 +37,7 @@ switch ($page) {
         header('Location:../admin/booktables.php');
         break;
     case 'orders':
-        if ($status == 0) {
-            $query = "UPDATE tbl_order SET status = 1 WHERE id = $id";
-        } elseif ($status == 1) {
+        if ($status == 2) {
             $query = "UPDATE tbl_order SET status = 2 WHERE id = $id";
         } else {
             $query = "UPDATE tbl_order SET status = 1 WHERE id = $id";
@@ -48,9 +46,19 @@ switch ($page) {
         header('Location:../admin/orders.php');
         break;
     case 'ship':
-        $query = "UPDATE tbl_order SET status = 3 WHERE id = $id";
-        $db->update($query);
-        header('Location:../admin/orders.php');
+        if ($status == 'complete') {
+            $query = "UPDATE tbl_order SET status = 4 WHERE id = $id";
+            $db->update($query);
+            
+            $query = "UPDATE tbl_orderdetails SET isPayment = 1 WHERE orderId = $id";
+            $db->update($query);
+            header('Location:../admin/main.php');
+        }
+        else {
+            $query = "UPDATE tbl_order SET status = 3 WHERE id = $id";
+            $db->update($query);
+            header('Location:../admin/order_shipper.php');
+        }
         break;
     case 'accountsAD':
         if ($status == 1) {
