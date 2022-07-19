@@ -18,6 +18,7 @@ $order = new Order();
         <div class="card">
             <div class="card-body">
                 <h4 class="card-title">Ordered Table</h4>
+
                 <div class="table-responsive">
                     <table class="table">
                         <thead>
@@ -26,6 +27,7 @@ $order = new Order();
                                 <th>OrderId</th>
                                 <th>Quantity</th>
                                 <th>Price</th>
+                                <th>Order Time</th>
                                 <th>Total</th>
                                 <th>Get Order</th>
                                 <th></th>
@@ -33,29 +35,62 @@ $order = new Order();
                         </thead>
                         <tbody>
                             <?php
-                            $get_list = $order->list_all_order();
                             $i = 0;
-                            while ($res = $get_list->fetch_array()) {
-                                if ($res['status'] == 1) {
-                                    $i++;
+                            $total = 0;
+                            $get_order = $order->list_orderDetails();
+                            while ($row = $get_order->fetch_assoc()) {
+                                if ($row['status'] == 1) {
+                                    $i++
                             ?>
                                     <tr>
-                                        <td><?php echo $i ?></td>
-                                        <td><?php echo $res['id'] ?></td>
-                                        <td><?php echo $res['quantity'] ?></td>
-                                        <td><?php echo $res['price'] ?></td>
-                                        <td><?php echo $res['quantity'] * $res['price'] ?></td>
-                                        <td><a class="btn btn-success">Accepted</a></td>
-                                        <td><a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#viewDetails<?php echo $res['id'] ?>">View Details</a></td>
+                                        <td><?= $i ?></td>
+                                        <td><?= $row['orderId'] ?></td>
+                                        <td>
+                                            <table>
+                                                <tr>
+                                                    <th scope="col">Product</th>
+                                                    <th scope="col">Image</th>
+                                                    <th scope="col">Price</th>
+                                                    <th scope="col">Quantity</th>
+                                                    <th scope="col">Order Time</th>
+                                                </tr>
+                                                <?php
+                                                $getBy_id = $order->getBy_id($row['orderId']);
+                                                while ($res = $getBy_id->fetch_array()) {
+                                                ?>
+                                                    <tr>
+                                                        <td><?= $res['productName'] ?></td>
+                                                        <td><img src="uploads/<?= $res['image'] ?>" width="100" height="100"></td>
+                                                        <td><?= $res['price'] ?></td>
+                                                        <td><?= $res['quantity'] ?></td>
+                                                    </tr>
+                                                <?php
+                                                $total +=  $res['price'] * $res['quantity'];
+                                                }
+                                                ?>
+                                            </table>
+                                        </td>
+                                        <td><?= $row['dateOrder'] ?></td>
+                                        <td><?= $total ?></td>
+                                        <td>
+                                            <?php
+                                            if ($row['status'] == 0) echo '<span class="btn btn-warning">Pending</span>';
+                                            else if ($row['status'] == 2) echo '<span class="btn btn-danger">Denied</span>';
+                                            else if ($row['status'] == 3) echo '<span class="btn btn-info">Shipping</span>';
+                                            else if ($row['status'] == 4) echo '<span class="btn btn-light">Completed</span>';
+                                            else echo '<span class="btn btn-success">Accepted</span>';
+                                            ?></td>
+                                        <td>
+                                            <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#viewDetails<?= $row['index'] ?>">View Details</a>
+                                        </td>
                                     </tr>
-
                                     <!-- Modal -->
-                                    <form action="cateedit.php" method="POST">
-                                        <div class="modal fade" id="viewDetails<?php echo $res['id'] ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <form method="POST">
+                                        <div class="modal fade" id="viewDetails<?= $row['index'] ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                             <div class="modal-dialog modal-dialog-centered">
                                                 <div class="modal-content">
                                                     <?php
-                                                    $result = $order->list_all_orderDetails_by_orderId($res['id'])->fetch_array();
+                                                    $result = $order->list_all_orderDetails_by_orderId($row['orderId'])->fetch_array();
                                                     ?>
                                                     <div class="modal-header">
                                                         <h5 class="modal-title" id="exampleModalLabel">View Order Details</h5>
@@ -72,7 +107,7 @@ $order = new Order();
                                                         <input style="color: red;" disabled value="<?= $result['phone'] ?>" type="text" class="form-control mb-2 mr-sm-2">
                                                     </div>
                                                     <div class="modal-footer">
-                                                        <a href="../classes/status.php?page=ship&status=null&id=<?= $res['id'] ?>" type="submit" class="btn btn-info">Ship</a>
+                                                        <a href="../classes/status.php?page=ship&status=null&id=<?= $row['orderId'] ?>" type="submit" class="btn btn-info">Ship</a>
                                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="closebtn">Close</button>
                                                     </div>
                                                 </div>

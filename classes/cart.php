@@ -116,11 +116,10 @@ class Cart
                 $quantity = $res['quantity'];
                 $price = $res['price'] * $quantity;
                 $img = $res['image'];
-                $customer_id = $cus_id;
 
                 
-                $query_order = "INSERT INTO tbl_order (id,productId,productName,quantity,price,image,customerId,payments)
-                    VALUES ('$id',$productId,'$productName',$quantity,'$price','$img',$customer_id,'$method')";
+                $query_order = "INSERT INTO tbl_order (id,productId,productName,quantity,price,image)
+                    VALUES ('$id',$productId,'$productName',$quantity,'$price','$img')";
 
                 $this->db->insert($query_order);
                 
@@ -131,11 +130,11 @@ class Cart
             $phone = $data['phone'];
 
             if ($method == 'offline') {
-                $query_order_details = "INSERT INTO tbl_orderDetails (orderId,addressReceiver,customerName,phone) 
-                    VALUES ('$get_current','$addressReceive','$name','$phone')";
+                $query_order_details = "INSERT INTO tbl_orderDetails (orderId,customerId,addressReceiver,customerName,phone,payments) 
+                    VALUES ('$get_current',$cus_id,'$addressReceive','$name','$phone','$method')";
             } else {
-                $query_order_details = "INSERT INTO tbl_orderDetails (orderId,addressReceiver,customerName,phone,ispayment) 
-                    VALUES ('$get_current','$addressReceive','$name','$phone',1)";
+                $query_order_details = "INSERT INTO tbl_orderDetails (orderId,customerId,addressReceiver,customerName,phone,ispayment,payments) 
+                    VALUES ('$get_current',$cus_id,'$addressReceive','$name','$phone',1,'$method')";
             }
 
             $this->db->insert($query_order_details);

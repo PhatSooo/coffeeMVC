@@ -17,9 +17,9 @@ class Chart
 
     public function chart_calculate()
     {
-        $query = "SELECT date_format(a.dateOrder, '%M') month,sum(a.price) total 
+        $query = "SELECT date_format(b.dateOrder, '%M, %d') month,sum(a.price) total 
                     FROM tbl_order a INNER JOIN tbl_orderdetails b
-                    ON a.id = b.orderId WHERE b.isPayment = 1 GROUP BY MONTH(a.dateOrder)";
+                    ON a.id = b.orderId WHERE b.isPayment = 1 GROUP BY MONTH(b.dateOrder)";
         $res = $this->db->select($query);
         return $res;
     }
