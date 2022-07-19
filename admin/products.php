@@ -340,7 +340,6 @@ $fm = new Format();
     </div>
 </a>
 
-
 <style>
     table td:hover img {
         transform: scale(5);

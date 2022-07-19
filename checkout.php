@@ -7,10 +7,10 @@ $get_user_info = $user->get_user(Session::get('customer_id'));
 
 if (isset($_POST['submit']) && $_POST['house'] == '') {
   echo '<script>alert("Please Input Your House Address Before Click CheckOut Button!!!")</script>';
-} else if (isset($_POST['submit']) && $_POST['optradio'] == '') {
+} else if (isset($_POST['submit']) && !isset($_POST['optradio']) && $_POST['paypal'] == '') {
   echo '<script>alert("Please Choose Your Payment Method Before Click CheckOut Button!!!")</script>';
 } else {
-  if (isset($_POST['submit']) && $_POST['optradio'] == 'offline') {
+  if (isset($_POST['submit']) && isset($_POST['optradio']) && $_POST['optradio'] != '') {
     $cus_id = Session::get('customer_id');
     $method = $_POST['optradio'];
     $cart->insertOrder($_POST, $cus_id, $method);
@@ -18,10 +18,11 @@ if (isset($_POST['submit']) && $_POST['house'] == '') {
     $cart->del_all_data_cart();
     header('Location:order_success.php');
   }
-  elseif (isset($_POST['submit']) && $_POST['optradio'] != 'offline') {
+  elseif (isset($_POST['submit']) && $_POST['paypal'] != ''){
     $cus_id = Session::get('customer_id');
-    $method = $_POST['optradio'];
+    $method = $_POST['paypal'];
     $cart->insertOrder($_POST, $cus_id, $method);
+
     $cart->del_all_data_cart();
     header('Location:order_success.php');
   }
@@ -134,10 +135,10 @@ if (isset($_POST['submit']) && $_POST['house'] == '') {
               <div class="form-group">
                 <div class="col-md-12">
                   <!-- Paypal button -->
-                  <div id="paypal-button-container"><input type="hidden" name="optradio" value="paypal"></div>
+                  <div id="paypal-button-container"><input id="radios" type="hidden" name="paypal" value=""></div>
                 </div>
               </div>
-              <p><button type="submit" name="submit" class="btn btn-primary py-3 px-4">Place an order</button></p>
+              <p><button type="submit" id="paypal" name="submit" class="btn btn-primary py-3 px-4">Place an order</button></p>
             </div>
           </div>
         </div>
@@ -248,7 +249,10 @@ if (isset($_POST['submit']) && $_POST['house'] == '') {
         console.log('Capture result', orderData, JSON.stringify(orderData, null, 2));
         const transaction = orderData.purchase_units[0].payments.captures[0];
         alert(`Transaction ${transaction.status}: ${transaction.id}\n\nSee console for all available details`);
-
+        var button = document.getElementById('paypal');
+        var s = document.getElementById('radios');
+        s.value = 'paypal';
+        button.click();
 
         // When ready to go live, remove the alert and show a success message within this page. For example:
         // const element = document.getElementById('paypal-button-container');

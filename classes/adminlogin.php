@@ -37,6 +37,7 @@ class Adminlogin
                 Session::set('adminId',$val['adminId']);
                 Session::set('adminUser',$val['adminUser']);
                 Session::set('adminName',$val['adminName']);
+                Session::set('isAdmin',$val['isAdmin']);
                 header('Location:main.php');
             }
             else {

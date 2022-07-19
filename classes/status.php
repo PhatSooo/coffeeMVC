@@ -29,28 +29,33 @@ switch ($page) {
         break;
     case 'btable':
         if ($status == 0) {
-            $query = "UPDATE tbl_booktable SET booktbIsset = 1 WHERE booktbId = $id";
+            $query = "UPDATE tbl_tablebooking SET booktbIsset = 1 WHERE booktbId = $id";
         } else {
-            $query = "UPDATE tbl_booktable SET booktbIsset = 0 WHERE booktbId = $id";
+            $query = "UPDATE tbl_tablebooking SET booktbIsset = 0 WHERE booktbId = $id";
         }
         $db->update($query);
         header('Location:../admin/booktables.php');
         break;
     case 'orders':
-        if ($status == 0) {
-            $query = "UPDATE tbl_order SET status = 1 WHERE id = $id";
-        } elseif ($status == 1) {
-            $query = "UPDATE tbl_order SET status = 2 WHERE id = $id";
+        if ($status == 2) {
+            $query = "UPDATE tbl_orderdetails SET status = 2 WHERE orderId = '$id'";
         } else {
-            $query = "UPDATE tbl_order SET status = 1 WHERE id = $id";
+            $query = "UPDATE tbl_orderdetails SET status = 1 WHERE orderId = '$id'";
         }
         $db->update($query);
         header('Location:../admin/orders.php');
         break;
     case 'ship':
-        $query = "UPDATE tbl_order SET status = 3 WHERE id = $id";
-        $db->update($query);
-        header('Location:../admin/orders.php');
+        if ($status == 'complete') {
+            $query = "UPDATE tbl_orderdetails SET isPayment = 1,status = 4 WHERE orderId = '$id'";
+            $db->update($query);
+            header('Location:../admin/main.php');
+        }
+        else {
+            $query = "UPDATE tbl_orderdetails SET status = 3 WHERE orderId = '$id'";
+            $db->update($query);
+            header('Location:../admin/order_shipper.php');
+        }
         break;
     case 'accountsAD':
         if ($status == 1) {

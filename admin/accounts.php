@@ -9,8 +9,6 @@ include '../classes/admin.php';
 $admin = new Admin();
 include '../classes/user.php';
 $user = new User();
-include '../classes/shipper.php';
-$shipper = new Shipper();
 ?>
 
 <?php
@@ -25,11 +23,6 @@ if (isset($_GET['delCus'])) {
     $res = $user->del_acc($_GET['delCus']);
     if ($res)
         echo '<script>window.location = "../admin/accounts.php?page=1"</script>';
-}
-#del shipper account
-if (isset($_GET['delShip'])) {
-    if ($shipper->del_acc($_GET['delShip']))
-        echo '<script>window.location = "../admin/accounts.php?page=2"</script>';
 }
 ?>
 
@@ -77,26 +70,28 @@ if (isset($_GET['page'])) {
                                 <tbody>
                                     <?php
                                     while ($res = $list->fetch_array()) {
-                                        $i++;
+                                        if ($res['isAdmin'] == 1) {
+                                            $i++;
                                     ?>
 
-                                        <tr>
-                                            <td><?= $i ?></td>
-                                            <td><?= $res['adminName'] ?></td>
-                                            <td><?= $res['adminUser'] ?></td>
-                                            <td><?= $res['adminEmail'] ?></td>
-                                            <td>
-                                                <?php
-                                                if ($res['status'])
-                                                    echo '<a href="../classes/status.php?id=' . $res['adminId'] . '&status=1&page=accountsAD" class="btn btn-success">Active</a>';
-                                                else echo '<a href="../classes/status.php?id=' . $res['adminId'] . '&status=0&page=accountsAD" class="btn btn-danger">Inactive</a>'
-                                                ?>
-                                            </td>
-                                            <td><a onclick="return confirm('Are you sure to delete this item?')" href="?delAd=<?= $res['adminId'] ?>" class="btn btn-info">Remove</a></td>
-                                        </tr>
+                                            <tr>
+                                                <td><?= $i ?></td>
+                                                <td><?= $res['adminName'] ?></td>
+                                                <td><?= $res['adminUser'] ?></td>
+                                                <td><?= $res['adminEmail'] ?></td>
+                                                <td>
+                                                    <?php
+                                                    if ($res['status'])
+                                                        echo '<a href="../classes/status.php?id=' . $res['adminId'] . '&status=1&page=accountsAD" class="btn btn-success">Active</a>';
+                                                    else echo '<a href="../classes/status.php?id=' . $res['adminId'] . '&status=0&page=accountsAD" class="btn btn-danger">Inactive</a>'
+                                                    ?>
+                                                </td>
+                                                <td><a onclick="return confirm('Are you sure to delete this item?')" href="?delAd=<?= $res['adminId'] ?>" class="btn btn-info">Remove</a></td>
+                                            </tr>
 
 
                                     <?php
+                                        }
                                     }
                                     ?>
                                 </tbody>
@@ -138,10 +133,10 @@ if (isset($_GET['page'])) {
                                         <tr>
                                             <td><?= $i ?></td>
                                             <td><?= $res['name'] ?></td>
+                                            <td><?= $res['username'] ?></td>
                                             <td><?= $res['address'] ?></td>
                                             <td><?= $res['phone'] ?></td>
                                             <td><?= $res['email'] ?></td>
-                                            <td><?= $res['username'] ?></td>
                                             <td>
                                                 <?php
                                                 if ($res['status'])
@@ -163,7 +158,7 @@ if (isset($_GET['page'])) {
         </div>
     <?php
     } elseif ($_GET['page'] == 2) {
-        $list = $shipper->list_all();
+        $list = $admin->list_all();
         $i = 0;
     ?>
         <div class="row">
@@ -178,8 +173,6 @@ if (isset($_GET['page'])) {
                                         <th>Item#</th>
                                         <th>Name</th>
                                         <th>Username</th>
-                                        <th>Address</th>
-                                        <th>Phone</th>
                                         <th>Email</th>
                                         <th>Status</th>
                                         <th>Remove</th>
@@ -188,27 +181,27 @@ if (isset($_GET['page'])) {
                                 <tbody>
                                     <?php
                                     while ($res = $list->fetch_array()) {
-                                        $i++;
+                                        if ($res['isAdmin'] == 0) {
+                                            $i++;
                                     ?>
 
-                                        <tr>
-                                            <td><?= $i ?></td>
-                                            <td><?= $res['shipName'] ?></td>
-                                            <td><?= $res['shipUsername'] ?></td>
-                                            <td><?= $res['shipAddress'] ?></td>
-                                            <td><?= $res['shipPhone'] ?></td>
-                                            <td><?= $res['shipEmail'] ?></td>
-                                            <td>
-                                                <?php
-                                                if ($res['status'])
-                                                    echo '<a href="../classes/status.php?id=' . $res['id'] . '&status=1&page=accountsSHIP" class="btn btn-success">Active</a>';
-                                                else echo '<a href="../classes/status.php?id=' . $res['id'] . '&status=0&page=accountsSHIP" class="btn btn-danger">Inactive</a>'
-                                                ?>
-                                            </td>
-                                            <td><a onclick="return confirm('Are you sure to delete this item?')" href="?delShip=<?= $res['id'] ?>" class="btn btn-info">Remove</a></td>
-                                        </tr>
+                                            <tr>
+                                                <td><?= $i ?></td>
+                                                <td><?= $res['adminName'] ?></td>
+                                                <td><?= $res['adminUser'] ?></td>
+                                                <td><?= $res['adminEmail'] ?></td>
+                                                <td>
+                                                    <?php
+                                                    if ($res['status'])
+                                                        echo '<a href="../classes/status.php?id=' . $res['adminId'] . '&status=1&page=accountsAD" class="btn btn-success">Active</a>';
+                                                    else echo '<a href="../classes/status.php?id=' . $res['adminId'] . '&status=0&page=accountsAD" class="btn btn-danger">Inactive</a>'
+                                                    ?>
+                                                </td>
+                                                <td><a onclick="return confirm('Are you sure to delete this item?')" href="?delAd=<?= $res['adminId'] ?>" class="btn btn-info">Remove</a></td>
+                                            </tr>
 
                                     <?php
+                                        }
                                     }
                                     ?>
                                 </tbody>

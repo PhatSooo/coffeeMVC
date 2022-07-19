@@ -35,7 +35,7 @@ class Booktable
             $alert = "<span class='badge badge-pill badge-danger'>Please Input Your Info to let us book a table for u</span>";
             return $alert;
         } else {
-            $query = "INSERT INTO tbl_booktable(booktbName,booktbDate,booktbTime,booktbPhone,booktbMess) VALUE ('$btName','$btDate','$btTime','$btPhone','$btMess')";
+            $query = "INSERT INTO tbl_tablebooking(booktbName,booktbDate,booktbTime,booktbPhone,booktbMess) VALUE ('$btName','$btDate','$btTime','$btPhone','$btMess')";
             $rs = $this->db->insert($query);
             if ($rs) {
                 $alert = "<span class='badge badge-pill badge-success'>Your Appointment create Successfully</span>";
@@ -49,7 +49,7 @@ class Booktable
 
     public function show_all()
     {
-        $query = "SELECT * FROM tbl_booktable";
+        $query = "SELECT * FROM tbl_tablebooking";
         $rs = $this->db->select($query);
         return $rs;
     }

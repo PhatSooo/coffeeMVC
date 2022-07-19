@@ -21,51 +21,67 @@ $order = new Order();
                     <table class="table">
                         <thead>
                             <tr>
-                                <th>Item#</th>
-                                <th>Product Name</th>
-                                <th>Quantity</th>
-                                <th>Price</th>
-                                <th>Date Order</th>
-                                <th>Status</th>
-                                <th>Details</th>
+                                <th scope="col">#</th>
+                                <th scope="col">Order ID</th>
+                                <th scope="col">Details</th>
+                                <th scope="col">Order Time</th>
+                                <th scope="col">Status</th>
+                                <th scope="col">Details</th>
                             </tr>
                         </thead>
                         <tbody>
                             <?php
-                            $get_list = $order->list_all_order();
                             $i = 0;
-                            while ($res = $get_list->fetch_array()) {
-                                $i++;
+                            $get_order = $order->list_orderDetails();
+                            while ($row = $get_order->fetch_assoc()) {
+                                $i++
                             ?>
                                 <tr>
-                                    <td><?php echo $i ?></td>
-                                    <td><?php echo $res['productName'] ?></td>
-                                    <td><?php echo $res['quantity'] ?></td>
-                                    <td><?php echo $res['price'] ?></td>
-                                    <td><?php echo $res['dateOrder'] ?></td>
+                                    <td><?= $i ?></td>
+                                    <td><?= $row['orderId'] ?></td>
+                                    <td>
+                                        <table>
+                                            <tr>
+                                                <th scope="col">Product</th>
+                                                <th scope="col">Image</th>
+                                                <th scope="col">Price</th>
+                                                <th scope="col">Quantity</th>
+                                            </tr>
+                                            <?php
+                                            $getBy_id = $order->getBy_id($row['orderId']);
+                                            while ($res = $getBy_id->fetch_array()) {
+                                            ?>
+                                                <tr>
+                                                    <td><?= $res['productName'] ?></td>
+                                                    <td><img src="uploads/<?= $res['image'] ?>" width="100" height="100"></td>
+                                                    <td><?= $res['price'] ?></td>
+                                                    <td><?= $res['quantity'] ?></td>
+                                                </tr>
+                                            <?php
+                                            }
+                                            ?>
+                                        </table>
+                                    </td>
+                                    <td><?= $row['dateOrder'] ?></td>
                                     <td>
                                         <?php
-                                        if ($res['status'] == 0)
-                                            echo '<a href="../classes/status.php?page=orders&status=0&id=' . $res['id'] . '" class="btn btn-warning">Pending</a>';
-                                        else if ($res['status'] == 2)
-                                            echo '<a href="../classes/status.php?page=orders&status=2&id=' . $res['id'] . '" class="btn btn-danger">Deny</a>';
-                                        else if ($res['status'] == 3)
-                                            echo '<a class="btn btn-info">Shipping</a>';
-                                        else if ($res['status'] == 4)
-                                            echo '<a class="btn btn-light">Completed</a>';
-                                        else echo '<a href="../classes/status.php?page=orders&status=1&id=' . $res['id'] . '" class="btn btn-success">Accepted</a>';
-                                        ?>
+                                        if ($row['status'] == 0) echo '<span class="btn btn-warning">Pending</span>';
+                                        else if ($row['status'] == 2) echo '<span class="btn btn-danger">Denied</span>';
+                                        else if ($row['status'] == 3) echo '<span class="btn btn-info">Shipping</span>';
+                                        else if ($row['status'] == 4) echo '<span class="btn btn-light">Completed</span>';
+                                        else echo '<span class="btn btn-success">Accepted</span>';
+                                        ?></td>
+                                    <td>
+                                        <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#viewDetails<?= $row['index'] ?>">View Details</a>
                                     </td>
-                                    <td><a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#viewDetails<?php echo $res['id'] ?>">View Details</a></td>
                                 </tr>
-
                                 <!-- Modal -->
-                                <form action="cateedit.php" method="POST">
-                                    <div class="modal fade" id="viewDetails<?php echo $res['id'] ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <form method="POST">
+                                    <div class="modal fade" id="viewDetails<?= $row['index'] ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                         <div class="modal-dialog modal-dialog-centered">
                                             <div class="modal-content">
                                                 <?php
-                                                $result = $order->list_all_orderDetails_by_orderId($res['id'])->fetch_array();
+                                                $result = $order->list_all_orderDetails_by_orderId($row['orderId'])->fetch_array();
                                                 ?>
                                                 <div class="modal-header">
                                                     <h5 class="modal-title" id="exampleModalLabel">View Order Details</h5>
@@ -82,7 +98,8 @@ $order = new Order();
                                                     <input style="color: red;" disabled value="<?= $result['phone'] ?>" type="text" class="form-control mb-2 mr-sm-2">
                                                 </div>
                                                 <div class="modal-footer">
-                                                    <a <?php if ($res['status'] != 1) echo 'style="pointer-events: none;"'; ?> href="../classes/status.php?page=ship&status=null&id=<?= $res['id'] ?>" type="submit" class="btn btn-info">Ship</a>
+                                                    <a href="../classes/status.php?page=orders&status=1&id=<?= $row['orderId'] ?>" type="submit" class="btn btn-success">Accept</a>
+                                                    <a href="../classes/status.php?page=orders&status=2&id=<?= $row['orderId'] ?>" type="submit" class="btn btn-danger">Deny</a>
                                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="closebtn">Close</button>
                                                 </div>
                                             </div>

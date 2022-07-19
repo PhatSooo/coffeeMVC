@@ -62,10 +62,15 @@ class User
 
             if ($res != false) {
                 $value = $res->fetch_array();
-                Session::set('customer_login',true);
-                Session::set('customer_id',$value[0]);
-                Session::set('customer_name',$value[1]);
-                header('Location:index.php');
+                if ($value['status'] == 1) {
+                    Session::set('customer_login', true);
+                    Session::set('customer_id', $value[0]);
+                    Session::set('customer_name', $value[1]);
+                    header('Location:index.php');
+                } else {
+                    $alert = "<span style = 'color: red;'>Your Account is banned, Please contact to Admin for details</span>";
+                    return $alert;
+                }
             } else {
                 $alert = "<span style = 'color: red;'>Username or Password is incorrect</span>";
                 return $alert;
@@ -80,23 +85,23 @@ class User
         return $res->fetch_array();
     }
 
-    public function update_cus($data,$id)
+    public function update_cus($data, $id)
     {
         $name = mysqli_real_escape_string($this->db->link, $data['name']);
         $email = mysqli_real_escape_string($this->db->link, $data['email']);
         $phone = mysqli_real_escape_string($this->db->link, $data['phone']);
         $address = mysqli_real_escape_string($this->db->link, $data['address']);
 
-        if ($name == "" || $email == ""){
+        if ($name == "" || $email == "") {
             $alert = "<span style='color:red;'>Your Name or Your Email must be not empty</span>";
             return $alert;
         } else {
             $query = "UPDATE tbl_customer SET name = '$name', email = '$email', phone = '$phone', address = '$address' WHERE id = $id";
             $result = $this->db->update($query);
 
-            if ($result){
+            if ($result) {
                 $alert = "<span style='color:green;'>You has updated your info successfully</span>";
-                Session::set('customer_name',$name);
+                Session::set('customer_name', $name);
                 return $alert;
             } else {
                 $alert = "<span style='color:red;'>Your info has not been updated</span>";
